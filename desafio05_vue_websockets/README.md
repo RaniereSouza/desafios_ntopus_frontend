@@ -1,4 +1,4 @@
-# Desafio 04: BDD com Cypress
+# Desafio 05: Vue.js e WebSockets
 
 ## Enunciado
 > Vue é o framework para todas as nossas aplicações web. Nesse desafio você deve escrever uma aplicação simples usando Vue e TS. Você tem liberdade para enriquecer a especificação caso queira demonstrar habilidade, mas cada feature deve ser implementada de forma simples e inteligível. Trata-se do front de um serviço de corrida de animais. O backend emitirá mensagens via WebSocket para atualização do front. As mensagens chegarão no formato `[<nome-evento>, <payload>]`, onde `<nome-evento>` é uma string e `<payload>` é uma estrutura de dados ou um valor JS qualquer. O backend emite os seguintes eventos:
