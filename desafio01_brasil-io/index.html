@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seleção Ntopus - Desafio 01</title>
+    <style>
+      * {
+        margin:      0;
+        padding:     0;
+        box-sizing:  border-box;
+        font-family: Helvetica Neue, Arial, sans-serif;
+      }
+
+      body > header {
+        display:         flex;
+        flex-direction:  column;
+        justify-content: center;
+        width:           100%;
+        height:          90px;
+        border-bottom:   1px solid #ddd;
+        padding:         0.5rem 1rem;
+      }
+
+      main {
+        position:       relative;
+        display:        flex;
+        flex-direction: row;
+        width:          100vw;
+        height:         calc(100vh - 90px);
+      }
+
+        main > div {
+          position:        relative;
+          display:         flex;
+          flex-direction:  column;
+          align-items:     center;
+          justify-content: center;
+          width:           50%;
+          padding:         0 1rem;
+        }
+
+          main > div + div {
+            border-left: 1px solid #ddd;
+          }
+
+          main > div > strong {
+            font-size:   3rem;
+            font-weight: 300;
+          }
+
+          main > div > span {
+            width:      100%;
+            min-height: 2rem;
+            text-align: center;
+            font-size:  1rem;
+          }
+    </style>
+  </head>
+  <body id="root">
+    <header>
+      <h1>Seleção Ntopus - Desafio 01</h1>
+      <h2>JavaScript, AJAX e APIs (Brasil.io)</h2>
+    </header>
+    <main>
+      <div>
+        <strong id="info-01">R$ 0,00</strong>
+        <span>Total da remuneração dos magistrados do órgão "Conselho Nacional de Justiça" em janeiro de 2018</span>
+      </div>
+      <div>
+        <strong id="info-02">0</strong>
+        <span>Quantidade de magistrados que receberam diárias acima de R$ 1.000,00 em janeiro de 2018</span>
+      </div>
+    </main>
+    <script src="index.js"></script>
+  </body>
+</html>
