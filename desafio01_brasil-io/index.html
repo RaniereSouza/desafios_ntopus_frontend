@@ -56,6 +56,44 @@
             text-align: center;
             font-size:  1rem;
           }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      #loading-spinner {
+        position:         absolute;
+        display:          block;
+        top:              calc((90px / 2) - 1rem);
+        right:            1rem;
+        width:            2rem;
+        height:           2rem;
+        border-radius:    50%;
+        background-color: #fff;
+        background-clip:  padding-box;
+        border:           0.25rem solid transparent;
+      }
+
+        #loading-spinner::before {
+          position:                  absolute;
+          z-index:                   -1;
+          top:                       -0.25rem;
+          right:                     -0.25rem;
+          width:                     2rem;
+          height:                    2rem;
+          border-radius:             inherit;
+          content:                   '';
+          background-image:          linear-gradient(to top right, #999, #ddd, #fff);
+          animation-name:            spin;
+          animation-duration:        500ms;
+          animation-iteration-count: infinite;
+          animation-timing-function: linear;
+        }
     </style>
   </head>
   <body id="root">
