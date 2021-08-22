@@ -1,8 +1,17 @@
 <template>
   <div id="corrida-container">
     <ul v-if="animalsList && (animalsList.length > 0)">
-      <li v-for="(animal, index) in animalsList" v-bind:key="index">
-        <div v-bind:title="animal.nome" class="animal-pin">
+      <li
+        v-for="(animal, index) in animalsList"
+        v-bind:key="index"
+      >
+        <div 
+          v-bind:title="animal.nome"
+          :style="{
+            marginLeft: `calc(${animal.distancia / 100} * (100vw - 2rem))`
+          }"
+          class="animal-pin"
+        >
           <span class="animal-popup">{{animal.nome}}</span>
         </div>
       </li>
@@ -34,6 +43,13 @@
           );
 
           clearTimeout(timeoutRef);
+
+          const intervalRef = setInterval(() => {
+            this.animalsList[2].distancia += 1;
+            if (this.animalsList[2].distancia === 100) {
+              clearInterval(intervalRef);
+            }
+          }, 250);
         }, 3000);
       }
     },
