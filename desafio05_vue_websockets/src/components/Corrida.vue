@@ -24,6 +24,7 @@
   import { defineComponent } from 'vue';
 
   import { TCorridaComponentData } from '../@types/TCorridaComponentData';
+  import { TCorridaWSMessage }     from '../@types/TCorridaWSMessage';
 
   export default defineComponent({
     name: 'Corrida',
@@ -45,12 +46,20 @@
 
       connection.onopen = ((event: Event) => {
         console.log('Conexão com WebSocket iniciada: ', event);
-        this.animalsList = [
-          {nome: "Cavalo",  distancia: 0},
-          {nome: "Jaguar",  distancia: 0},
-          {nome: "Canguru", distancia: 0},
-          {nome: "Lobo",    distancia: 0},
-        ];
+      });
+      connection.onmessage = ((event: MessageEvent) => {
+        const dataJSON: TCorridaWSMessage = JSON.parse(event.data);
+
+        if (dataJSON) {
+          const [messageType, messageContent] = dataJSON;
+
+          if ((messageType === 'largada')    &&
+             (Array.isArray(messageContent))) {
+
+            this.animalsList = messageContent;
+            console.log('Iniciando corrida! ', messageContent.map(el => el.nome));
+          }
+        }
       });
       connection.onerror = ((event: Event) => {
         console.log('Erro na conexão com WebSocket! ', event);
