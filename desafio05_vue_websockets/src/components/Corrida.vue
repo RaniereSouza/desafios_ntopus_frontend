@@ -23,35 +23,41 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
 
-  import { TAnimal } from '../@types/TAnimal';
+  import { TCorridaComponentData } from '../@types/TCorridaComponentData';
 
   export default defineComponent({
     name: 'Corrida',
     data() {
-      return {
-        animalsList: [] as TAnimal[],
-      };
+      const componentData: TCorridaComponentData = {
+              animalsList: []
+            };
+
+      return componentData;
     },
     mounted() {
-      if (this.animalsList && Array.isArray(this.animalsList)) {
-        const timeoutRef = setTimeout(() => {
-          this.animalsList.push(
-            {nome: "Cavalo",  distancia: 0},
-            {nome: "Jaguar",  distancia: 0},
-            {nome: "Canguru", distancia: 0},
-            {nome: "Lobo",    distancia: 0},
-          );
-
-          clearTimeout(timeoutRef);
-
-          const intervalRef = setInterval(() => {
-            this.animalsList[2].distancia += 1;
-            if (this.animalsList[2].distancia === 100) {
-              clearInterval(intervalRef);
-            }
-          }, 250);
-        }, 3000);
+      if (!WebSocket) {
+        console.log('Este código necessita do objeto nativo WebSocket!');
+        return;
       }
+
+      const connection  = new WebSocket('ws://localhost:8081/');
+      this.wsConnection = connection;
+
+      connection.onopen = ((event: Event) => {
+        console.log('Conexão com WebSocket iniciada: ', event);
+        this.animalsList = [
+          {nome: "Cavalo",  distancia: 0},
+          {nome: "Jaguar",  distancia: 0},
+          {nome: "Canguru", distancia: 0},
+          {nome: "Lobo",    distancia: 0},
+        ];
+      });
+      connection.onerror = ((event: Event) => {
+        console.log('Erro na conexão com WebSocket! ', event);
+      });
+    },
+    unmounted() {
+      this.wsConnection && this.wsConnection.close();
     },
   });
 </script>
