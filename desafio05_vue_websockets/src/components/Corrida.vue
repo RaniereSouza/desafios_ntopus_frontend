@@ -1,12 +1,12 @@
 <template>
   <div id="corrida-container">
-    <ul v-if="animalsList && (animalsList.length > 0)">
+    <ul v-if="(start === true) && animalsList && (animalsList.length > 0)">
       <li
         v-for="(animal, index) in animalsList"
-        v-bind:key="index"
+        :key="index"
       >
         <div 
-          v-bind:title="animal.nome"
+          :title="animal.nome"
           :style="{
             marginLeft: `calc(${animal.distancia / 100} * (100vw - 2rem))`
           }"
@@ -17,6 +17,10 @@
       </li>
     </ul>
     <span v-else class="loading-spinner"></span>
+    <VitoriaModal
+      :open="winner ? true : false"
+      :winnerName="winner ? winner.nome : '--'"
+    />
   </div>
 </template>
 
@@ -26,15 +30,21 @@
   import { TCorridaComponentData } from '../@types/TCorridaComponentData';
   import { TCorridaWSMessage }     from '../@types/TCorridaWSMessage';
 
+  import VitoriaModal from './VitoriaModal.vue';
+
   export default defineComponent({
     name: 'Corrida',
     data() {
       const componentData: TCorridaComponentData = {
               start:       false,
-              animalsList: []
+              animalsList: [],
+              winner:      undefined,
             };
 
       return componentData;
+    },
+    components: {
+      VitoriaModal
     },
     mounted() {
       if (!WebSocket) {

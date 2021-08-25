@@ -5,7 +5,6 @@
       <h2>Vue.js e WebSockets</h2>
     </header>
     <main>
-      <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
       <Corrida />
     </main>
   </div>
