@@ -5,15 +5,7 @@
         v-for="(animal, index) in animalsList"
         :key="index"
       >
-        <div 
-          :title="animal.nome"
-          :style="{
-            marginLeft: `calc(${animal.distancia / 100} * (100vw - 2rem))`
-          }"
-          class="animal-pin"
-        >
-          <span class="animal-popup">{{animal.nome}}</span>
-        </div>
+        <AnimalPin :animal="animal"/>
       </li>
     </ul>
     <span v-else class="loading-spinner"></span>
@@ -30,6 +22,7 @@
   import { TCorridaComponentData } from '../@types/TCorridaComponentData';
   import { TCorridaWSMessage }     from '../@types/TCorridaWSMessage';
 
+  import AnimalPin    from './AnimalPin.vue';
   import VitoriaModal from './VitoriaModal.vue';
 
   export default defineComponent({
@@ -44,6 +37,7 @@
       return componentData;
     },
     components: {
+      AnimalPin,
       VitoriaModal
     },
     mounted() {
@@ -116,6 +110,7 @@
   ul {
     list-style-type:  none;
     width:            100%;
+    overflow-x:       clip;
     padding:          0;
     background-color: #333;
   }
@@ -133,21 +128,23 @@
       border-top: 1px dashed #fff;
     }
 
-    li .animal-pin {
-      position:         relative;
-      width:            2rem;
-      height:           2rem;
-      border-radius:    50%;
-      overflow:         hidden;
-      background-color: aqua;
+    li:nth-of-type(5n + 1) .animal-pin {
+      background-color: yellow !important;
+    }
+    li:nth-of-type(5n + 2) .animal-pin {
+      background-color: forestgreen !important;
+    }
+    li:nth-of-type(5n + 3) .animal-pin {
+      background-color: magenta !important;
+    }
+    li:nth-of-type(5n + 4) .animal-pin {
+      background-color: antiquewhite !important;
+    }
+    li:nth-of-type(5n) .animal-pin {
+      background-color: crimson !important;
     }
 
-      li .animal-pin > .animal-popup {
-        position: absolute;
-        opacity:  0;
-      }
-
-    @keyframes spin {
+  @keyframes spin {
     0% {
       transform: rotate(0deg);
     }

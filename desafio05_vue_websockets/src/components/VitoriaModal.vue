@@ -35,7 +35,7 @@
         this.triggeredClose = true;
       },
     },
-  })
+  });
 </script>
 
 <style scoped>
@@ -88,7 +88,7 @@
       justify-content: center;
       width:           2rem;
       height:          2rem;
-      font-size:       1.75rem;
+      font-size:       2rem;
       cursor:          pointer;
       transition:      all 0.375s;
     }
