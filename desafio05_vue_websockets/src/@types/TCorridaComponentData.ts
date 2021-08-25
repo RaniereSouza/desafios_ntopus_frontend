@@ -1,6 +1,8 @@
 import { TAnimal } from "./TAnimal"
 
 export type TCorridaComponentData = {
-  animalsList:   TAnimal[];
+  start:         boolean;
   wsConnection?: WebSocket;
+  animalsList:   TAnimal[];
+  winner?:       TAnimal;
 }

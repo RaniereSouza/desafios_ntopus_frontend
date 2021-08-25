@@ -30,6 +30,7 @@
     name: 'Corrida',
     data() {
       const componentData: TCorridaComponentData = {
+              start:       false,
               animalsList: []
             };
 
@@ -48,16 +49,38 @@
         console.log('Conexão com WebSocket iniciada: ', event);
       });
       connection.onmessage = ((event: MessageEvent) => {
-        const dataJSON: TCorridaWSMessage = JSON.parse(event.data);
+        if (!this.winner) {
+          const dataJSON: TCorridaWSMessage = JSON.parse(event.data);
 
-        if (dataJSON) {
-          const [messageType, messageContent] = dataJSON;
+          if (dataJSON) {
+            const [messageType, messageContent] = dataJSON;
 
-          if ((messageType === 'largada')    &&
-             (Array.isArray(messageContent))) {
+            if ((messageType === 'largada')    &&
+               (Array.isArray(messageContent))) {
 
-            this.animalsList = messageContent;
-            console.log('Iniciando corrida! ', messageContent.map(el => el.nome));
+              this.start       = true;
+              this.animalsList = messageContent;
+              console.log('Iniciando corrida! ', messageContent.map(el => el.nome));
+            }
+            else if ((messageType === 'update')     &&
+                    (Array.isArray(messageContent))) {
+              
+              if (this.start === true) {
+                this.animalsList = messageContent;
+              }
+            }
+            else if ((messageType === 'vitoria')     &&
+                    (!Array.isArray(messageContent))) {
+              
+              if (this.start === true) {
+                this.winner = messageContent;
+                console.log('Fim da corrida! Vencedor: ', messageContent.nome);
+                connection.close();
+              }
+            }
+            else {
+              console.log('O back-end enviou uma mensagem não prevista! ', event);
+            }
           }
         }
       });
