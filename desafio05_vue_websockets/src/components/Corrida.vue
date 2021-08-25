@@ -9,6 +9,7 @@
       </li>
     </ul>
     <span v-else class="loading-spinner"></span>
+    
     <VitoriaModal
       :open="winner ? true : false"
       :winnerName="winner ? winner.nome : '--'"

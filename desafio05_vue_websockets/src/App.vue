@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @click="clickHidePopups">
     <header id="header">
       <h1>Seleção Ntopus - Desafio 05</h1>
       <h2>Vue.js e WebSockets</h2>
@@ -19,6 +19,22 @@
     name: 'App',
     components: {
       Corrida
+    },
+    methods: {
+      clickHidePopups(event: MouseEvent) {
+        const target = event.target as HTMLElement,
+              parent = target.parentElement;
+
+        if (!target.classList.contains('animal-pin')     &&
+           (!target.classList.contains('animal-popup'))  &&
+           (!parent?.classList.contains('animal-pin'))   &&
+           (!parent?.classList.contains('animal-popup'))) {
+          
+          document.querySelectorAll<HTMLElement>('.animal-pin .animal-popup.show').forEach(element => {
+            element.classList.remove('show');
+          });
+        }
+      }
     }
   });
 </script>
